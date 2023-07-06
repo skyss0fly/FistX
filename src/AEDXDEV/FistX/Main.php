@@ -14,7 +14,6 @@ use pocketmine\Server;
 use pocketmine\player\Player;
 use pocketmine\scheduler\Task;
 use pocketmine\utils\Config;
-use pocketmine\world\World;
 
 class Main extends PluginBase{
   
@@ -63,7 +62,7 @@ class Main extends PluginBase{
 	}
 	
 	public function loadGames(){
-	  if (count($this->getGame()) == 0)return false;
+	  if (count($this->getGames()) == 0)return false;
 	  foreach (scandir($this->getDataFolder() . "games/") as $game) {
       if (is_file($this->getDataFolder() . "games/" . $game . ".yml")) {
         $data = new Config($this->getDataFolder() . "games/" . $game . ".yml", Config::YAML);
@@ -162,7 +161,8 @@ class Main extends PluginBase{
       if ($data === null){
 	      return;
 	    }
-      $this->GameManager->addGame($data[1], $player->getWorld());
+      $this->GameManager->addGame($data[1], $player->getWorld()->getFolderName());
+      $player->sendMessage("§aThe Game Has been Created!");
     });
     $form->setTitle("§eFistX");
     $form->addLabel("§aCreate Game");
