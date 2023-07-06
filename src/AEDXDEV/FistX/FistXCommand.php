@@ -131,10 +131,10 @@ class FistXCommand extends Command implements PluginOwned{
 			break;
 			case "list":
 				if(!$sender->hasPermission("fistx.admin"))return false;
-				if(count($this->plugin->getGames() == 0)) {
-				  $sender->sendMessage("§cNo Game Exist");
-				  return false;
-				}
+				  if(count($this->plugin->getGames()) == 0) {
+				    $sender->sendMessage("§cNo Game Exist");
+				    return false;
+				  }
 				$sender->sendMessage("§aGames:");
 				foreach ($this->plugin->getGames() as $name => $game){
 				  $sender->sendMessage("§e- " . $name . " => " . count($game->getPlayers()));
