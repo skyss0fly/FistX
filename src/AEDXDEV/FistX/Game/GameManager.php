@@ -100,10 +100,11 @@ class GameManager {
     foreach ($this->plugin->games as $name => $game) {
       $pname = $player->getName();
       if ($name == $gameName) {
-        if(isset($game->players[$pname])) {
-          $game->QuitGame($player);
+        if(!isset($game->players[$pname])) {
+          return false;
         }
       }
+      $game->QuitGame($player);
     }
   }
   
