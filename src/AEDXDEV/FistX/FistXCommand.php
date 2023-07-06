@@ -9,6 +9,7 @@ use pocketmine\world\Position;
 use pocketmine\entity\Location;
 use pocketmine\utils\Config;
 use pocketmine\player\Player;
+use pocketmine\world\World;
 
 use AEDXDEV\FistX\Main;
 
@@ -23,7 +24,7 @@ class FistXCommand extends Command implements PluginOwned{
 	}
 	
 	public function execute(CommandSender $sender, string $label, array $args) {
-		if(!isset($args[1])){
+		if(!isset($args[0])){
 			$sender->sendMessage("§cUsage: /" . $label . " help");
 			return false;
 		}
@@ -48,12 +49,12 @@ class FistXCommand extends Command implements PluginOwned{
 			    return false;
 			  }
 				if(!$sender->hasPermission("fistx.admin"))return false;
-				if(!isset($args[2])){
+				if(!isset($args[1])){
 					$sender->sendMessage("§cUsage: /" . $label . " create <GameName>");
 					return false;
 				}
-				$world = $sender->getWorld();
-				if($world == $this->plugin->getServer()->getWorldManager()->getDefaultWorld()){
+				$world = $sender->getWorld()->getFolderName();
+				if($world == $this->plugin->getServer()->getWorldManager()->getDefaultWorld()->getFolderName()){
 					$sender->sendMessage("§cYou can\'t create game in default world!");
 					return false;
 				}
@@ -63,9 +64,8 @@ class FistXCommand extends Command implements PluginOwned{
             return false;
           }
 				}
-				if($this->plugin->GameManager->addGame($args[2], $world)){
+				if($this->plugin->GameManager->addGame($args[1], $world)){
 					$sender->sendMessage("§eGame created!");
-					return true;
 				}
 			break;
 			case "setlobby":
@@ -74,7 +74,7 @@ class FistXCommand extends Command implements PluginOwned{
 			    return false;
 			  }
 				if(!$sender->hasPermission("fistx.admin"))return false;
-				$world = $sender->getWorld();
+				$world = $sender->getWorld()->getFolderName();
 				$game = null;
 				$name = null;
 				foreach ($this->plugin->getGames() as $aname => $agame){
@@ -97,7 +97,7 @@ class FistXCommand extends Command implements PluginOwned{
 			    return false;
 			  }
 				if(!$sender->hasPermission("fistx.admin"))return false;
-				$world = $sender->getWorld();
+				$world = $sender->getWorld()->getFolderName();
 				$game = null;
 				$name = null;
 				foreach ($this->plugin->getGames() as $aname => $agame){
@@ -120,11 +120,11 @@ class FistXCommand extends Command implements PluginOwned{
 					$sender->sendMessage("§cUsage: /" . $label . " delete <GameName>");
 					return false;
 				}
-				if(!isset($this->plugin->games[$args[2]])){
+				if(!isset($this->plugin->games[$args[1]])){
 					$sender->sendMessage("§cGame not exist");
 					return false;
 				}
-				if($this->plugin->GameManager->deleteGame($args[2])){
+				if($this->plugin->GameManager->deleteGame($args[1])){
 					$sender->sendMessage("§aGame deleted!");
 					return true;
 				}
@@ -166,7 +166,7 @@ class FistXCommand extends Command implements PluginOwned{
 			  }
 			break;
 			case "manage":
-			  if (!$sender instanceof Player) return false;
+			  if (!$sender instanceof Player)return false;
 			  $this->plugin->ManageForm($sender);
 			break;
 		}
