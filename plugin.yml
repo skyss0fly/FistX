@@ -1,0 +1,11 @@
+name: FistX
+author: AEDXDEV
+description: is a survival game and you have steaks that you can eat when you are hungry
+version: 1.0.0
+api: 5.0.0
+main: AEDXDEV\FistX\Main
+permissions:
+  fistx.admin:
+    default: op
+  fistx.player:
+    default: true
