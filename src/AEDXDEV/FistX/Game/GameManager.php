@@ -101,7 +101,7 @@ class GameManager {
       $pname = $player->getName();
       if ($name == $gameName) {
         if(isset($game->players[$pname])) {
-        $game->QuitGame($player);
+          $game->QuitGame($player);
         }
       }
     }
@@ -129,11 +129,11 @@ class GameManager {
   public function inGame(Player $player): bool {
     $pname = $player->getName();
     foreach ($this->plugin->games as $name => $game) {
-      if (isset($game->players[$pname])){
-        return true;
+      if (!isset($game->players[$pname])){
+        return false;
       }
-      return false;
     }
+    return true;
   }
   
   public function getGame(Player $player) {
