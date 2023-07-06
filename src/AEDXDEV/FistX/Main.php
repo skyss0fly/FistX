@@ -209,7 +209,7 @@ class Main extends PluginBase{
       if ($data === null){
 	      return;
 	    }
-      $this->GameManager->setGameName($game, $data[1], $player->getWorld());
+      $this->GameManager->setGameName($game, $data[1],);
       });
     $form->setTitle("§eFistX");
     $form->addLabel("§aEdit Game");
