@@ -46,7 +46,7 @@ class Game {
   }
   
   public function setLobby($xyz) {
-    $data = new Config($this->plugin->getDataFolder() . "games/" . $GameName . ".yml", Config::YAML);
+    $data = new Config($this->plugin->getDataFolder() . "games/" . $this->GameName . ".yml", Config::YAML);
     $data->set("Lobby", $xyz);
     $data->save();
     $this->Lobby = $xyz;
@@ -57,7 +57,7 @@ class Game {
   }
   
   public function setRespawn($xyz) {
-    $data = new Config($this->plugin->getDataFolder() . "games/" . $GameName . ".yml", Config::YAML);
+    $data = new Config($this->plugin->getDataFolder() . "games/" . $this->GameName . ".yml", Config::YAML);
     $data->set("Respawn", $xyz);
     $data->save();
     $this->Respawn = $xyz;
@@ -138,11 +138,11 @@ class Game {
 		foreach ($this->players as $name){
 		  $player = $this->plugin->getServer()->getPlayerExact($name);
 			$cfg = new Config($this->plugin->getDataFolder() . "config.yml", Config::YAML);
-			$scoreboard->new($player, "fist", $scoreboard->scoreboardsLines[$scoreboard->ScoreBoard->scoreboardsLine]);
+			$scoreboard->new($player, "fist", $scoreboard->scoreboardsLines[$scoreboard->scoreboardsLine]);
 			$scoreboard->setLine($player, 1, "");
 			$scoreboard->setLine($player, 2, " §bPlayers: §a" . count($this->getPlayers()) . "  ");
 			$scoreboard->setLine($player, 3, " ");
-			$scoreboard->setLine($player, 4, " §bMap: §a" . $this->GameName() . "  ");
+			$scoreboard->setLine($player, 4, " §bMap: §a" . $this->GameName . "  ");
 			$scoreboard->setLine($player, 5, "  ");
 			$scoreboard->setLine($player, 6, " §bKills: §a" . $this->plugin->getKills($player) . " ");
 			$scoreboard->setLine($player, 7, " §bDeaths: §a" . $this->plugin->getDeaths($player) . " ");
